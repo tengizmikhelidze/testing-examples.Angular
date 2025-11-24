@@ -1,0 +1,6 @@
+.error { color: #c00; font-size: 0.8rem; }
+.success { color: #090; margin-top: .5rem; }
+form { display: flex; flex-direction: column; gap: .75rem; max-width: 320px; }
+input[type=text] { padding: .25rem .5rem; }
+button[disabled] { opacity: .5; cursor: not-allowed; }
+

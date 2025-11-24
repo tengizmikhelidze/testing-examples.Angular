@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" />
+    <div class="error" *ngIf="title?.touched && title.invalid">
+      <span *ngIf="title.errors?.['required']">Title is required.</span>
+      <span *ngIf="title.errors?.['minlength']">Title must be at least 3 characters.</span>
+      <span *ngIf="title.errors?.['whitespace']">Title cannot be empty or whitespace.</span>
+    </div>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" formControlName="completed" /> Completed
+    </label>
+  </div>
+  <button type="submit" [disabled]="form.invalid || submitting">{{ submitting ? 'Saving...' : 'Add Todo' }}</button>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="success" *ngIf="lastCreated">Created #{{ lastCreated.id }}: {{ lastCreated.title }}</div>
+</form>
+
