@@ -1,56 +1,19 @@
 
 # Angular RxJS Unit Testing:  A Comprehensive Guide with Jest and TestBed
-# Angular RxJS იუნით ტესტირება: სრული გზამკვლევი Jest-ისა და TestBed-ის გამოყენებით
-
-## Introduction / შესავალი
 
 **English:**
 Testing RxJS observables in Angular applications is crucial for building reliable, maintainable code. This comprehensive guide covers best practices for testing RxJS code using Jest and Angular TestBed, including unit tests and integration tests.  We'll explore how to mock data, handle asynchronous operations, test error scenarios, and avoid common pitfalls.
 
 **ქართული:**
-RxJS Observable-ების ტესტირება Angular აპლიკაციებში კრიტიკულად მნიშვნელოვანია საიმედო და მოვლადი კოდის შესაქმნელად. ეს სრული გზამკვლევი მოიცავს საუკეთესო პრაქტიკებს RxJS კოდის ტესტირებისთვის Jest-ისა და Angular TestBed-ის გამოყენებით, მათ შორის იუნით და ინტეგრაციულ ტესტებს.  ჩვენ განვიხილავთ როგორ მოვახდინოთ მონაცემების მოკირება (mocking), ასინქრონული ოპერაციების მართვა, შეცდომების სცენარების ტესტირება და გავერიდოთ ხშირ შეცდომებს.
+RxJS Observable-ების ტესტირება Angular აპლიკაციებში კრიტიკულად მნიშვნელოვანია საიმედო და რთულად მოწყვლადი კოდის შესაქმნელად. ეს სრული გზამკვლევი მოიცავს საუკეთესო პრაქტიკებს RxJS კოდის ტესტირებისთვის, მათ შორის Unit და Integration ტესტებს.  ჩვენ განვიხილავთ როგორ მოვახდინოთ მონაცემების მოკირება (mocking), ასინქრონული ოპერაციების მართვა, Error სცენარების ტესტირება და ავიცილოთ ხშირად დაშვებული შეცდომები.
 
-## Prerequisites / წინაპირობები
-
-**English:**
-- Angular 12+ project
-- Jest configured for Angular (jest-preset-angular)
-- Basic understanding of RxJS operators
-- Familiarity with Angular TestBed
-
-**ქართული:**
-- Angular 12+ პროექტი
-- Jest კონფიგურირებული Angular-ისთვის (jest-preset-angular)
-- RxJS ოპერატორების ძირითადი ცოდნა
-- Angular TestBed-ის ცოდნა
-
-## Setup / დაყენება
-
-```json
-{
-  "devDependencies": {
-    "@angular/core": "^17.0.0",
-    "@angular/common": "^17.0.0",
-    "@angular/platform-browser": "^17.0.0",
-    "@angular/common/http": "^17.0.0",
-    "jest":  "^29.0.0",
-    "jest-preset-angular": "^13.0.0",
-    "rxjs": "^7.8.0",
-    "@types/jest": "^29.0.0"
-  }
-}
-```
-
----
-
-## Chapter 1: How to Mock Data for RxJS Using Jest
-## თავი 1: როგორ მოვახდინოთ მონაცემების მოკირება (Mock) RxJS-ისთვის Jest-ის გამოყენებით
+# Chapter 1: How to Mock Data for RxJS Using Jest / როგორ დავმოკოთ (Mock) RxJS-ისთვის Jest გამოყენებით 
 
 **English:**
 Mocking is essential for isolating the code under test.  Jest provides powerful mocking capabilities that work seamlessly with RxJS observables. There are several approaches to mock RxJS data. 
 
 **ქართული:**
-მოკირება (Mocking) აუცილებელია სატესტო კოდის იზოლირებისთვის.  Jest უზრუნველყოფს ძლიერ მოკირების შესაძლებლობებს, რომლებიც შესანიშნავად მუშაობენ RxJS Observable-ებთან. არსებობს რამდენიმე მიდგომა RxJS მონაცემების მოკირებისთვის.
+მოკირება (Mocking) აუცილებელია სატესტო კოდის იზოლირებისთვის.  Jest გვაძლებს საშუალებას მარტივად და ხარისხიანად დავმოკოთ RxJS Observable-ბი. არსებობს რამდენიმე მიდგომა RxJS მონაცემების მოკირებისთვის.
 
 ### 1.1 Mocking with `of()` / მოკირება `of()`-ის გამოყენებით
 
@@ -58,7 +21,7 @@ Mocking is essential for isolating the code under test.  Jest provides powerful 
 The simplest way to mock observables is using RxJS `of()` operator, which creates an observable that immediately emits values and completes.
 
 **ქართული:**
-Observable-ების მოკირების უმარტივესი გზაა RxJS `of()` ოპერატორის გამოყენება, რომელიც ქმნის Observable-ს, რომელიც დაუყოვნებლივ გამოსცემს მნიშვნელობებს და სრულდება.
+Observable-ების მოკირების უმარტივესი გზაა RxJS `of()` ოპერატორის გამოყენება, რომელიც ქმნის Observable-ს და ის დაუყოვნებლივ გადმოსცემს მნიშვნელობებს ჩვენს Observable-ს და სრულდება.
 
 ```typescript
 // user.service.ts
@@ -157,7 +120,7 @@ describe('UserService - Mocking with of()', () => {
 For more control, create complete mock objects with Jest's mocking utilities.  This is useful when testing components that depend on services.
 
 **ქართული:**
-უფრო დიდი კონტროლისთვის, შექმენით სრული მოკ ობიექტები Jest-ის მოკირების უტილიტების გამოყენებით. ეს სასარგებლოა კომპონენტების ტესტირებისას, რომლებიც დამოკიდებულია სერვისებზე.
+უფრო დიდი შესაძლებლობებისთვის შექმენით სრული მოკ ობიექტები Jest-ის მოკირების სხვადასხვა ხელსაწყოების გამოყენებით. ეს მოკირების მეთოდი სასარგებლოა კომპონენტების ტესტირებისას, რომლებიც დამოკიდებულია სერვისებზე.
 
 ```typescript
 // user-list.component.spec.ts
@@ -217,94 +180,13 @@ describe('Mocking with Jest Mock Functions', () => {
 });
 ```
 
-### 1.3 Mocking HTTP Requests / HTTP მოთხოვნების მოკირება
-
-**English:**
-When testing services that make HTTP calls, use Angular's `HttpClientTestingModule` to mock HTTP requests and responses.
-
-**ქართული:**
-სერვისების ტესტირებისას, რომლებიც HTTP გამოძახებებს ახდენენ, გამოიყენეთ Angular-ის `HttpClientTestingModule` HTTP მოთხოვნებისა და პასუხების მოკირებისთვის.
-
-```typescript
-// user.service.http.spec.ts
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { UserService, User } from './user.service';
-
-describe('UserService - HTTP Mocking', () => {
-  let service: UserService;
-  let httpMock: HttpTestingController;
-
-  const mockUsers: User[] = [
-    { id: 1, name: 'ლევან ბერიძე', email: 'levan@example.com', role: 'active' },
-    { id: 2, name: 'Sarah Connor', email: 'sarah@example.com', role: 'active' }
-  ];
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [UserService]
-    });
-
-    service = TestBed.inject(UserService);
-    httpMock = TestBed.inject(HttpTestingController);
-  });
-
-  afterEach(() => {
-    // English:  Verify that no unmatched requests are outstanding
-    // ქართული:  დავადასტუროთ, რომ არ არის დარჩენილი მოუსწორებელი მოთხოვნები
-    httpMock.verify();
-  });
-
-  it('should mock HTTP GET request', (done) => {
-    // English: Call the service method
-    // ქართული: გამოვიძახოთ სერვისის მეთოდი
-    
-    service. getUsers().subscribe(users => {
-      expect(users).toEqual(mockUsers);
-      expect(users.length).toBe(2);
-      done();
-    });
-
-    // English: Expect that a single request was made to the URL
-    // ქართული:  მოველოდოთ, რომ ერთი მოთხოვნა გაკეთდა URL-ზე
-    const req = httpMock.expectOne('https://api.example.com/users');
-    
-    // English: Verify request method
-    // ქართული:  შევამოწმოთ მოთხოვნის მეთოდი
-    expect(req.request.method).toBe('GET');
-    
-    // English: Respond with mock data
-    // ქართული: მოვახდინოთ პასუხი მოკ მონაცემებით
-    req.flush(mockUsers);
-  });
-
-  it('should mock HTTP request with specific ID', (done) => {
-    const mockUser:  User = mockUsers[0];
-
-    service.getUserById(1).subscribe(user => {
-      expect(user).toEqual(mockUser);
-      expect(user?. name).toBe('ლევან ბერიძე');
-      done();
-    });
-
-    const req = httpMock.expectOne('https://api.example.com/users/1');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockUser);
-  });
-});
-```
-
----
-
-## Chapter 2: How to Test RxJS Using fakeAsync and tick
-## თავი 2: როგორ ვატესტოთ RxJS fakeAsync-ისა და tick-ის გამოყენებით
+# Chapter 2: How to Test RxJS Using fakeAsync and tick / როგორ ვატესტოთ RxJS fakeAsync-ისა და tick-ის გამოყენებით
 
 **English:**
 `fakeAsync` and `tick` are Angular testing utilities that allow you to control the passage of time in tests. They are essential for testing time-based RxJS operators like `debounceTime`, `delay`, `throttleTime`, and `interval`.
 
 **ქართული:**
-`fakeAsync` და `tick` არის Angular-ის სატესტო უტილიტები, რომლებიც საშუალებას გაძლევთ გააკონტროლოთ დროის გავლა ტესტებში. ისინი აუცილებელია დროზე დაფუძნებული RxJS ოპერატორების ტესტირებისთვის, როგორიცაა `debounceTime`, `delay`, `throttleTime` და `interval`.
+`fakeAsync` და `tick` არის Angular-ის სატესტო ხელსაწყოები, რომლებიც საშუალებას გაძლევთ ხელოვნურად გააკონტროლოთ დრო ტესტებში. ისინი აუცილებელია დროზე დაფუძნებული RxJS ოპერატორების ტესტირებისთვის, როგორიცაა `debounceTime`, `delay`, `throttleTime` და `interval`.
 
 ### 2.1 When to Use fakeAsync and tick / როდის გამოვიყენოთ fakeAsync და tick
 
@@ -319,20 +201,18 @@ describe('UserService - HTTP Mocking', () => {
 - Testing simple synchronous observables (`of`, `from`)
 - Testing HTTP requests (use `done` callback or `async/await` instead)
 - Testing WebSocket connections or real-time streams
-- You have asynchronous operations that cannot be controlled (like `setTimeout` in third-party libraries)
 
 **ქართული:**
 ✅ **გამოიყენეთ `fakeAsync` და `tick` როდესაც:**
-- ტესტავთ ოპერატორებს დროის დაგვიანებით (`debounceTime`, `delay`, `throttleTime`, `auditTime`)
+- ტესტავთ ოპერატორებს დაგვიანებით (`debounceTime`, `delay`, `throttleTime`, `auditTime`)
 - ტესტავთ `interval` ან `timer` Observable-ებს
 - გჭირდებათ დროის პროგრესის კონტროლი ტესტებში
 - ტესტავთ ანიმაციებს ან დაგეგმილ ამოცანებს
 
 ❌ **არ გამოიყენოთ `fakeAsync` და `tick` როდესაც:**
 - ტესტავთ მარტივ სინქრონულ Observable-ებს (`of`, `from`)
-- ტესტავთ HTTP მოთხოვნებს (გამოიყენეთ `done` callback ან `async/await` ამის ნაცვლად)
-- ტესტავთ WebSocket კავშირებს ან რეალურ დროის ნაკადებს
-- გაქვთ ასინქრონული ოპერაციები, რომლებიც არ კონტროლდება (როგორიცაა `setTimeout` მესამე მხარის ბიბლიოთეკებში)
+- ტესტავთ HTTP მოთხოვნებს ( გამოიყენეთ `done` callback ან `async/await` )
+- ტესტავთ WebSocket კავშირებს ან რეალური დროის ნაკადებს
 
 ### 2.2 Testing debounceTime / debounceTime-ის ტესტირება
 
@@ -374,17 +254,12 @@ describe('SearchService - fakeAsync and tick', () => {
   });
 
   it('should debounce search input using fakeAsync', fakeAsync(() => {
-    // English: Setup - collect emitted values
-    // ქართული: მოწყობა - შევაგროვოთ გამოსცემული მნიშვნელობები
     
     const results: string[] = [];
-    service.search$. subscribe(term => results.push(term));
-
-    // English: Emit multiple values quickly
-    // ქართული: სწრაფად გამოვსცეთ მრავალი მნიშვნელობა
+    service.search$.subscribe(term => results.push(term));
     
     service.onSearch('a');
-    tick(100); // ქართული: გაიარე 100 მილიწამი
+    tick(100);
     
     service.onSearch('an');
     tick(100);
@@ -395,15 +270,15 @@ describe('SearchService - fakeAsync and tick', () => {
     service.onSearch('angular');
     
     // English: At this point, no values should be emitted yet (< 300ms)
-    // ქართული: ამ მომენტში, ჯერ არ უნდა იყოს გამოსული მნიშვნელობები (< 300მწ)
+    // ქართული: ამ მომენტში, ჯერ არ უნდა მიგვეღო მნიშვნელობები (< 300მწ)
     expect(results.length).toBe(0);
     
     // English: Fast-forward time by 300ms - debounce time
-    // ქართული: დრო წინ გადავიტანოთ 300მწ-ით - debounce დრო
+    // ქართული: გადავახვიოთ 300მწ-ით - debounce დრო
     tick(300);
     
     // English: Now the last value should be emitted
-    // ქართული: ახლა ბოლო მნიშვნელობა უნდა გამოიცეს
+    // ქართული: ახლა ბოლო მნიშვნელობა უნდა მივიღოთ
     expect(results.length).toBe(1);
     expect(results[0]).toBe('angular');
   }));
@@ -441,14 +316,13 @@ describe('SearchService - fakeAsync and tick', () => {
     service.onSearch('angular');
     tick(300);
     
-    service.onSearch('angular'); // ქართული: იგივე მნიშვნელობა
+    service.onSearch('angular');
     tick(300);
     
-    service.onSearch('angular'); // ქართული: იგივე მნიშვნელობა
+    service.onSearch('angular');
     tick(300);
 
     // English: Should only emit once due to distinctUntilChanged
-    // ქართული: უნდა გამოიცეს მხოლოდ ერთხელ distinctUntilChanged-ის გამო
     expect(results).toEqual(['angular']);
   }));
 });
@@ -479,7 +353,7 @@ export class NotificationService {
     };
     
     // English: Delay notification by 2 seconds
-    // ქართული: შეატყობინება 2 წამით გვიანდება
+    // ქართული: შეატყობინების 2 წამით დაგვიანება
     return of(notification).pipe(delay(2000));
   }
 }
@@ -502,7 +376,6 @@ describe('NotificationService - Testing delay', () => {
 
   it('should delay notification by 2 seconds', fakeAsync(() => {
     // English: Setup test
-    // ქართული: ტესტის მოწყობა
     
     let notificationReceived = false;
     
@@ -513,16 +386,16 @@ describe('NotificationService - Testing delay', () => {
     });
 
     // English: Immediately after subscription, notification should not be received
-    // ქართული:  გამოწერის შემდეგ დაუყოვნებლივ, შეტყობინება არ უნდა იყოს მიღებული
+    // ქართული:  დასაბსქრაბების შემდეგ დაუყოვნებლივ, შეტყობინება ჯერ არ უნდა მიგვეღო
     expect(notificationReceived).toBe(false);
 
     // English: After 1 second, still not received
-    // ქართული: 1 წამის შემდეგ, ჯერ არ არის მიღებული
+    // ქართული: 1 წამის შემდეგ, ისევ არ არის
     tick(1000);
     expect(notificationReceived).toBe(false);
 
     // English: After 2 seconds, notification should be received
-    // ქართული: 2 წა��ის შემდეგ, შეტყობინება უნდა იყოს მიღებული
+    // ქართული: 2 წამის შემდეგ, შეტყობინება უნდა მიგვეღო
     tick(1000);
     expect(notificationReceived).toBe(true);
   }));
@@ -586,8 +459,6 @@ describe('TimerService - Testing interval', () => {
   });
 
   it('should countdown from 5 to 0', fakeAsync(() => {
-    // English:  Collect all emitted values
-    // ქართული: შევაგროვოთ ყველა გამოსული მნიშვნელობა
     
     const values: number[] = [];
     
@@ -596,7 +467,7 @@ describe('TimerService - Testing interval', () => {
     });
 
     // English: No values yet
-    // ქართული: ჯერ არ არის ���ნიშვნელობები
+    // ქართული: ჯერ არ არის მნიშვნელობები
     expect(values. length).toBe(0);
 
     // English: After 1 second -> 4
@@ -677,7 +548,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     this.isSearching = true;
     
     // English: Simulate search (in real app, this would be an API call)
-    // ქართული:  ძიების სიმულაცია (რეალურ აპში, ეს იქნებოდა API გამოძახება)
+    // ქართული:  ძებნის სიმულაცია
     setTimeout(() => {
       this.searchResults = [`Result for "${term}"`];
       this.isSearching = false;
@@ -714,14 +585,13 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
 
   it('should debounce user input', fakeAsync(() => {
     // English: Initialize component
-    // ქართული:  ინიციალიზაცია კომპონენტის
     
     fixture.detectChanges();
 
     const input:  HTMLInputElement = fixture.nativeElement.querySelector('[data-testid="search-input"]');
 
     // English: Type quickly - multiple keystrokes
-    // ქართული: სწრაფად ავკრიფოთ - მრავალი კლავიშის დაჭერა
+    // ქართული: მრავალი კლავიშის დაჭერის სიმულაცია
     
     input.value = 'a';
     input.dispatchEvent(new Event('input'));
@@ -736,7 +606,7 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
     tick(50);
 
     // English: Search should not have been triggered yet
-    // ქართული: ძიება ჯერ არ უნდა გაეშვას
+    // ქართული: ძებნა ჯერ არ უნდა გაეშვას
     expect(component.isSearching).toBe(false);
 
     // English: Wait for debounce time
@@ -744,11 +614,11 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
     tick(300);
     
     // English: Now search should be triggered
-    // ქართული: ახლა ძიება უნდა გაეშვას
+    // ქართული: ახლა ძებნა უნდა გაეშვას
     expect(component.isSearching).toBe(true);
 
     // English: Complete the simulated search
-    // ქართული: სიმულირებული ძიების დასრულება
+    // ქართული: სიმულირებული ძებნის დასრულება
     tick(100);
     fixture.detectChanges();
 
@@ -760,14 +630,11 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
     fixture.detectChanges();
 
     const input: HTMLInputElement = fixture. nativeElement.querySelector('[data-testid="search-input"]');
-
-    // English: Set same value multiple times
-    // ქართული: დავაყენოთ იგივე მნიშვნელობა მრავალჯერ
     
     input.value = 'angular';
     input.dispatchEvent(new Event('input'));
     tick(300);
-    tick(100); // ქართული: ძიების დასრულება
+    tick(100);
     
     const firstSearchCount = component.searchResults.length;
     
@@ -777,7 +644,7 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
     tick(100);
     
     // English: Should not trigger another search
-    // ქართული: არ უნდა გაეშვას კიდევ ერთი ძიება
+    // ქართული: კიდევ ერთი ძებნა აღარ უნდა გაეშვას
     expect(component. searchResults.length).toBe(firstSearchCount);
     
     flush();
@@ -787,14 +654,13 @@ describe('SearchInputComponent - fakeAsync Integration', () => {
 
 ---
 
-## Chapter 3: Test Error Scenarios
-## თავი 3: შეცდომების სცენარების ტესტირება
+# Chapter 3: Test Error Scenarios / თავი 3: შეცდომების სცენარების ტესტირება
 
 **English:**
 Testing error scenarios is crucial to ensure your application handles failures gracefully. RxJS provides operators like `catchError`, `retry`, and `throwError` to handle errors.
 
 **ქართული:**
-შეცდომების სცენარების ტესტირება კრიტიკულად მნიშვნელოვანია იმის უზრუნველსაყოფად, რომ თქვენი აპლიკაცია გამართულად ამუშავებს წარუმატებლობებს. RxJS უზრუნველყოფს ოპერატორებს როგორიცაა `catchError`, `retry` და `throwError` შეცდომების დასამუშავებლად. 
+Error სცენარების ტესტირება კრიტიკულად მნიშვნელოვანია იმის უზრუნველსაყოფად, რომ თქვენი აპლიკაცია გამართულად ამუშავებს შეცდომებს. RxJS უზრუნველყოფს ოპერატორებს როგორიცაა `catchError`, `retry` და `throwError` შეცდომების დასამუშავებლად. 
 
 ### 3.1 Testing catchError / catchError-ის ტესტირება
 
@@ -835,7 +701,7 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/data`).pipe(
       catchError((error:  HttpErrorResponse) => {
         // English: Re-throw error with custom message
-        // ქართული: შეცდომის თავიდან გაშვება მორგებული შეტყობინებით
+        // ქართული: შეცდომის თავიდან გაშვება
         return throwError(() => new Error(`API Error: ${error.status}`));
       })
     );
@@ -918,7 +784,7 @@ describe('ApiService - Error Scenarios', () => {
 
   it('should re-throw error with custom message', (done) => {
     // English: Test that error is re-thrown
-    // ქართული: ვატესტოთ, რომ შეცდომა თავიდან გაიშვება
+    // ქართული: ვატესტოთ, რომ შეცდომა ისევ სათადარიგო მნიშვნელობას დააბრუნებს
     
     service.getDataWithError().subscribe({
       next: () => fail('Should not succeed'),
@@ -951,7 +817,7 @@ export class RetryService {
   constructor(private http: HttpClient) {}
 
   // English: Retry failed requests up to 3 times
-  // ქართული: ხელახლა ცადოს წარუმატებელი მოთხოვნები 3-ჯერ
+  // ქართული: ხელახლა სცადოს წარუმატებელი მოთხოვნები 3-ჯერ
   getDataWithRetry(): Observable<any> {
     return this.http.get(`${this.apiUrl}/data`).pipe(
       retry(3),
@@ -989,7 +855,7 @@ describe('RetryService - Retry Logic', () => {
 
   it('should retry 3 times before failing', (done) => {
     // English: Test that request is retried 3 times
-    // ქართული: ვატესტოთ, რომ მოთხოვნა 3-ჯერ მოხდება
+    // ქართული: გავტესტოთ, რომ მოთხოვნა 3-ჯერ გამეორდება
     
     service.getDataWithRetry().subscribe(response => {
       expect(response.error).toBe('ყველა მცდელობა ვერ მოხერხდა');
@@ -1122,13 +988,13 @@ describe('UserProfileComponent - Error Handling', () => {
 
   it('should display error message when loading fails', (done) => {
     // English: Mock service to throw error
-    // ქართული: სერვისის მოკირება შეცდომის გასაგდებად
+    // ქართული: სერვისის მოკირება შეცდომის დასაბრუნებლად
     
     mockUserService. getUserById.mockReturnValue(
       throwError(() => new Error('Network Error'))
     );
 
-    fixture.detectChanges(); // ქართული: ngOnInit ეშვება
+    fixture.detectChanges();
 
     setTimeout(() => {
       fixture.detectChanges();
@@ -1163,7 +1029,7 @@ describe('UserProfileComponent - Error Handling', () => {
       .mockReturnValueOnce(throwError(() => new Error('Network Error')))
       .mockReturnValueOnce(of(mockUser));
 
-    fixture.detectChanges(); // ქართული: პირველი ჩატვირთვა
+    fixture.detectChanges();
 
     setTimeout(() => {
       fixture.detectChanges();
@@ -1171,7 +1037,7 @@ describe('UserProfileComponent - Error Handling', () => {
       expect(component.error).toBeTruthy();
 
       // English: Click retry button
-      // ქართული: გავაჭირავთ თავიდან ცდის ღილაკს
+      // ქართული: დავაჭიროთ ღილაკს
       const retryButton = fixture.nativeElement.querySelector('[data-testid="retry-button"]');
       retryButton.click();
       fixture.detectChanges();
@@ -1204,25 +1070,24 @@ describe('UserProfileComponent - Error Handling', () => {
 
 ---
 
-## Chapter 4: Best Practices for Testing
-## თავი 4: საუკეთესო პრაქტიკები ტესტირებისთვის
+# Chapter 4: Best Practices for Testing / თავი 4: საუკეთესო პრაქტიკები ტესტირებისთვის
 
 **English:**
 Following best practices ensures your tests are maintainable, reliable, and provide value.  Here are key principles for testing RxJS code in Angular. 
 
 **ქართული:**
-საუკეთესო პრაქტიკების დაცვა უზრუნველყოფს, რომ თქვენი ტესტები იყოს მოვლადი, საიმედო და მნიშვნელოვანი. აქ არის ძირითადი პრინციპები RxJS კოდის ტესტირებისთვის Angular-ში.
+საუკეთესო პრაქტიკების დაცვა უზრუნველყოფს, რომ თქვენი ტესტები იყოს საიმედო და მნიშვნელოვანი. აქ არის ძირითადი პრინციპები RxJS კოდის ტესტირებისთვის Angular-ში.
 
-### 4.1 Always Clean Up Subscriptions / ყოველთვის გაასუფთავეთ გამოწერები
+### 4.1 Always Clean Up Subscriptions / ყოველთვის გაასუფთავეთ Subscriptions
 
 **English:**
 Memory leaks are common when subscriptions are not properly cleaned up. Use `takeUntil` pattern or unsubscribe in `ngOnDestroy`.
 
 **ქართული:**
-მეხსიერების ჟონვა ხშირია, როდესაც გამოწერები სწორად არ იწმინდება. გამოიყენეთ `takeUntil` პატერნი ან unsubscribe მეთოდი `ngOnDestroy`-ში.
+მეხსიერების გაჟონვა ხშირია, როდესაც Subsacriptions სწორად არ იწმინდება. გამოიყენეთ `takeUntil` პატერნი ან unsubscribe მეთოდი `ngOnDestroy`-ში.
 
 ```typescript
-// ✅ GOOD - Using takeUntil / კარგი - takeUntil-ის გამოყენება
+// ✅ GOOD - Using takeUntil / takeUntil-ის გამოყენება
 @Component({... })
 export class GoodComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -1242,7 +1107,7 @@ export class GoodComponent implements OnInit, OnDestroy {
 }
 
 // ✅ GOOD - Using async pipe (auto-unsubscribes)
-// კარგი - async pipe-ის გამოყენება (ავტომატურად unsubscribe)
+// async pipe-ის გამოყენება (ავტომატურად unsubscribe)
 @Component({
   template: `<div>{{ data$ | async }}</div>`
 })
@@ -1251,13 +1116,13 @@ export class GoodAsyncComponent {
   constructor(private dataService: DataService) {}
 }
 
-// ❌ BAD - No cleanup / ცუდი - გაწმენდის გარეშე
+// ❌ BAD - No cleanup / გაწმენდის გარეშე
 @Component({... })
 export class BadComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getData().subscribe(data => {
       // ⚠️ This subscription will never be cleaned up
-      // ⚠️ ეს გამოწერა არასოდეს გაიწმინდება
+      // ⚠️ ეს subscription არასოდეს გაიწმინდება
     });
   }
 }
@@ -1286,28 +1151,28 @@ it('should unsubscribe on destroy', () => {
 When testing observables without `fakeAsync`, always use the `done()` callback to signal test completion.
 
 **ქართული:**
-Observable-ების ტესტირებისას `fakeAsync`-ის გარეშე, ყოველთვის გამოიყენეთ `done()` callback ტესტის დასრულების სიგნალიზირებისთვის.
+Observable-ების ტესტირებისას `fakeAsync`-ის გარეშე, ყოველთვის გამოიყენეთ `done()` callback ტესტის დასრულების მანიშნებლად.
 
 ```typescript
 // ✅ GOOD - Using done() / კარგი - done()-ის გამოყენება
 it('should complete async operation', (done) => {
   service.getData().subscribe(data => {
     expect(data).toBeDefined();
-    done(); // ქართული: ეს აუცილებელია! 
+    done(); // ეს აუცილებელია! 
   });
 });
 
-// ❌ BAD - Missing done() / ცუდი - done()-ის გარეშე
+// ❌ BAD - Missing done() / done()-ის გარეშე
 it('should complete async operation', () => {
   service.getData().subscribe(data => {
     expect(data).toBeDefined();
     // ⚠️ Test will pass even if subscription never emits
-    // ⚠️ ტესტი გაივლის მაშინაც კი, თუ გამოწერა არასოდეს გამოსცემს მნიშვნელობას
+    // ⚠️ ტესტი გაივლის მაშინაც კი, თუ გამოწერა არასოდეს დააბრუნებს მნიშვნელობას
   });
 });
 
 // ✅ GOOD - Using fakeAsync (no done needed)
-// კარგი - fakeAsync-ის გამოყენება (done საჭირო არაა)
+// fakeAsync-ის გამოყენება (done საჭირო არაა)
 it('should complete sync operation', fakeAsync(() => {
   service.getData().subscribe(data => {
     expect(data).toBeDefined();
@@ -1326,7 +1191,7 @@ Mock dependencies at the appropriate level - services for unit tests, HTTP for i
 
 ```typescript
 // ✅ GOOD - Unit test:  Mock the service
-// კარგი - იუნით ტესტი: სერვისის მოკირება
+// Unit ტესტი: სერვისის მოკირება
 describe('Component Unit Test', () => {
   let mockUserService: jest.Mocked<UserService>;
 
@@ -1344,12 +1209,11 @@ describe('Component Unit Test', () => {
 
   it('should use mocked service', () => {
     // Test component logic in isolation
-    // ტესტავს კომპონენტის ლოგიკას იზოლაციაში
   });
 });
 
 // ✅ GOOD - Integration test: Mock HTTP
-// კარგი - ინტეგრაციული ტესტი: HTTP-ის მოკირება
+// ინტეგრაციული ტესტი: HTTP-ის მოკირება
 describe('Service Integration Test', () => {
   let httpMock: HttpTestingController;
 
@@ -1364,7 +1228,7 @@ describe('Service Integration Test', () => {
 
   it('should make HTTP request', () => {
     // Test real service with mocked HTTP
-    // ტესტავს რეალურ სერვისს მოკირებული HTTP-თი
+    // ტესტავს რეალურ სერვისს მოკირებული HTTP-ით
   });
 });
 ```
@@ -1375,7 +1239,7 @@ describe('Service Integration Test', () => {
 Comprehensive tests cover both happy paths and error scenarios. 
 
 **ქართული:**
-ყოვლისმომცველი ტესტები მოიცავს როგორც წარმატებულ, ისე შეცდომის სცენარებს.
+ყოვლისმომცველი ტესტები მოიცავს როგორც წარმატებულ, ისე error სცენარებს.
 
 ```typescript
 describe('Comprehensive Testing', () => {
@@ -1422,7 +1286,7 @@ Each test should verify one specific behavior.  Avoid testing multiple things in
 თითოეული ტესტი უნდა ამოწმებდეს ერთ კონკრეტულ ქცევას. თავიდან აიცილეთ რამდენიმე რამის ტესტირება ერთ ტესტში.
 
 ```typescript
-// ✅ GOOD - Focused tests / კარგი - ფოკუსირებული ტესტები
+// ✅ GOOD - Focused tests / ფოკუსირებული ტესტები
 it('should load users on init', () => {
   // Tests only initialization
   // ტესტავს მხოლოდ ინიციალიზაციას
@@ -1441,7 +1305,7 @@ it('should handle errors', () => {
   expect(component. error).toBeTruthy();
 });
 
-// ❌ BAD - Testing too much / ცუდი - ძალიან ბევრის ტესტირება
+// ❌ BAD - Testing too much / ძალიან ბევრის ტესტირება
 it('should do everything', () => {
   // ⚠️ Testing initialization, loading, error, success all at once
   // ⚠️ ტესტავს ინიციალიზაციას, ჩატვირთვას, შეცდომას, წარმატებას ერთდროულად
@@ -1452,7 +1316,7 @@ it('should do everything', () => {
 });
 ```
 
-### 4.6 Use Descriptive Test Names / გამოიყენეთ აღწერითი ტესტის სახელები
+### 4.6 Use Descriptive Test Names / გამოიყენეთ დეტალურად აღწერილი ტესტის სახელები
 
 **English:**
 Test names should clearly describe what is being tested and the expected behavior.
@@ -1461,7 +1325,7 @@ Test names should clearly describe what is being tested and the expected behavio
 ტესტის სახელები უნდა აღწერდეს რას ტესტავთ და მოსალოდნელ ქცევას.
 
 ```typescript
-// ✅ GOOD - Descriptive names / კარგი - აღწერითი სახელები
+// ✅ GOOD - Descriptive names / დეტალურად გაწერილი ტესტის სახელები
 describe('UserService', () => {
   it('should return list of users when API call succeeds', (done) => { });
   it('should return empty array when no users exist', (done) => { });
@@ -1470,7 +1334,7 @@ describe('UserService', () => {
   it('should debounce search input by 300ms', fakeAsync(() => { }));
 });
 
-// ❌ BAD - Vague names / ცუდი - ბუნდოვანი სახელები
+// ❌ BAD - Vague names / ბუნდოვანი სახელები
 describe('UserService', () => {
   it('should work', (done) => { }); // ⚠️ What should work?
   it('test 1', (done) => { }); // ⚠️ What does test 1 do?
@@ -1484,7 +1348,7 @@ describe('UserService', () => {
 When using `HttpClientTestingModule`, always verify that no unexpected HTTP requests were made.
 
 **ქართული:**
-`HttpClientTestingModule`-ის გამოყენებისას, ყოველთვის დაადასტურეთ, რომ არ გაკეთებულა მოულოდნელი HTTP მოთხოვნები.
+`HttpClientTestingModule`-ის გამოყენებისას, ყოველთვის შევამოწმოთ, რომ არ გაკეთებულა მოულოდნელი ან ზედმეტი HTTP მოთხოვნები.
 
 ```typescript
 // ✅ GOOD - Always verify / კარგი - ყოველთვის დაადასტურეთ
@@ -1500,7 +1364,7 @@ describe('Service HTTP Tests', () => {
 
   afterEach(() => {
     // English: This ensures no unexpected requests were made
-    // ქართული: ეს უზრუნველყოფს, რომ მოულოდნელი მოთხოვნები არ გაკეთებულა
+    // ქართული: ეს უზრუნველყოფს, რომ მოულოდნელი/ზედმეტი მოთხოვნები არ გაკეთებულა
     httpMock.verify();
   });
 
@@ -1519,10 +1383,10 @@ describe('Service HTTP Tests', () => {
 Always use TestBed to configure and create components for proper dependency injection and Angular lifecycle management.
 
 **ქართული:**
-ყოველთვის გამოიყენეთ TestBed კომპონენტების კონფიგურაციისა და შექმნისთვის სწორი dependency injection-ისა და Angular-ის ცხოვრების ციკლის მართვისთვის. 
+ყოველთვის გამოიყენეთ TestBed კომპონენტების კონფიგურაციისა და შექმნისთვის სწორი dependency injection-ისა და Angular Lifecycle-ის მართვისთვის. 
 
 ```typescript
-// ✅ GOOD - Using TestBed / კარგი - TestBed-ის გამოყენება
+// ✅ GOOD - Using TestBed / TestBed-ის გამოყენება
 describe('MyComponent', () => {
   let component: MyComponent;
   let fixture: ComponentFixture<MyComponent>;
@@ -1545,7 +1409,7 @@ describe('MyComponent', () => {
   });
 });
 
-// ❌ BAD - Manual instantiation / ცუდი - ხელით შექმნა
+// ❌ BAD - Manual instantiation / ხელით შექმნა
 describe('MyComponent', () => {
   it('should create', () => {
     // ⚠️ No dependency injection, no lifecycle hooks
@@ -1565,7 +1429,7 @@ describe('MyComponent', () => {
 Integration tests verify that multiple components work together correctly. These tests are more complex than unit tests but provide greater confidence in your application. 
 
 **ქართული:**
-ინტეგრაციული ტესტები ამოწმებენ, რომ რამდენიმე კომპონენტი სწორად მუშაობს ერთად. ეს ტესტები უფრო რთულია ვიდრე იუნით ტესტები, მაგრამ უზრუნველყოფენ უფრო დიდ ნდობას თქვენს აპლიკაციაში. 
+ინტეგრაციული ტესტები ამოწმებენ, რომ რამდენიმე კომპონენტი ერთად იდეალურად და სწორად მუშაობს. ეს ტესტები უფრო რთულია ვიდრე იუნიტ ტესტები.
 
 ### 5.1 Component + Service Integration / კომპონენტი + სერვისი ინტეგრაცია
 
@@ -1715,11 +1579,9 @@ describe('ProductListComponent - Integration Tests', () => {
 
   it('should load and display products on init', (done) => {
     // English: Trigger component initialization
-    // ქართული: კომპონენტის ინიციალიზაციის გაშვება
     fixture.detectChanges();
 
     // English:  Verify loading state is shown
-    // ქართული:  შევამოწმოთ, რომ ჩატვირთვის მდგომარეობა ნაჩვენებია
     expect(component.loading).toBe(true);
     const loadingElement = fixture.nativeElement.querySelector('[data-testid="loading"]');
     expect(loadingElement).toBeTruthy();
@@ -1825,7 +1687,7 @@ describe('ProductListComponent - Integration Tests', () => {
       expect(errorElement).toBeTruthy();
 
       // English:  Retry by clicking category
-      // ქართული: თავიდან ცდა კატეგორიის დაჭერით
+      // ქართული: თავიდან ცდა კატეგორიაზე დაჭერით
       const allButton = fixture.nativeElement.querySelector('[data-testid="category-ყველა"]');
       allButton.click();
       fixture.detectChanges();
@@ -1848,10 +1710,10 @@ describe('ProductListComponent - Integration Tests', () => {
 });
 ```
 
-### 5.2 Multiple Services Integration / მრავალი სერვისის ინტეგრაცია
+### 5.2 Multiple Services Integration / რამოდენიმე სერვისის ინტეგრაცია
 
 ```typescript
-// order. service.ts
+// order.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
@@ -1883,11 +1745,9 @@ export class OrderService {
 
   getOrderWithDetails(orderId: number): Observable<OrderDetails> {
     // English: First get the order
-    // ქართული:  ჯერ მივიღოთ შეკვეთა
     return this.http.get<Order>(`${this.apiUrl}/orders/${orderId}`).pipe(
       switchMap(order => {
         // English: Then get user and all products
-        // ქართული: შემდეგ მივიღოთ მომხმარებელი და ყველა პროდუქტი
         return forkJoin({
           order: [order],
           user: this.userService.getUserById(order.userId),
@@ -1973,7 +1833,7 @@ describe('OrderService - Multiple Services Integration', () => {
     orderReq.flush(mockOrder);
 
     // English: Handle user request
-    // ქ���რთული: მომხმარებლის მოთხოვნის დამუშავება
+    // ქართული: მომხმარებლის მოთხოვნის დამუშავება
     const userReq = httpMock.expectOne('https://api.example.com/users/100');
     expect(userReq.request.method).toBe('GET');
     userReq.flush(mockUser);
@@ -2007,7 +1867,7 @@ describe('OrderService - Multiple Services Integration', () => {
 });
 ```
 
-### 5.3 Real-Time Data Integration / რეალურ დროის მონაცემების ინტეგრაცია
+### 5.3 Real-Time Data Integration / რეალურ დროში მონაცემების ინტეგრაცია
 
 ```typescript
 // notification.component.ts
@@ -2175,14 +2035,13 @@ describe('NotificationCenterComponent - Real-Time Integration', () => {
 
 ---
 
-## Chapter 6: Common Pitfalls to Avoid
-## თავი 6: ხშირი შეცდომები, რომლებიც უნდა თავიდან ავიცილოთ
+# Chapter 6: Common Pitfalls to Avoid / თავი 6: ხშირი შეცდომები, რომლებიც თავიდან უნდა ავიცილოთ
 
 **English:**
 Understanding common mistakes helps you write better tests and avoid frustrating debugging sessions.
 
 **ქართული:**
-ხშირი შეცდომების გაგება დაგეხმარებათ დაწეროთ უკეთესი ტესტები და თავი აარიდოთ დამღლელ დებაგინგ სესიებს.
+ხშირი შეცდომები რომელთა თავიდან არიდებისას ტესტები გამოვა ხარისხიანი და თავიდან აგარიდებთ ბაგის გამოკვლევაზე დახარჯულ უამრავ დროს
 
 ### 6.1 Forgetting to Call done() / done()-ის გამოძახების დავიწყება
 
@@ -2190,11 +2049,11 @@ Understanding common mistakes helps you write better tests and avoid frustrating
 ❌ **Problem:** Async tests complete before the observable emits, causing false positives. 
 
 **ქართული:**
-❌ **პრობლემა:** ასინქრონული ტესტები სრულდება Observable-ის გამოშვებამდე, რაც იწვევს ცრუ პოზიტიურ შედეგებს.
+❌ **პრობლემა:** ასინქრონული ტესტები სრულდება Observable-ის პასუხის მიღებამდე, რაც იწვევს ცრუ პოზიტიურ შედეგებს.
 
 ```typescript
 // ❌ BAD - Test passes even if observable never emits
-// ცუდი - ტესტი გაივლის მაშინაც კი, თუ Observable არასოდ��ს გამოსცემს
+// ტესტი გაივლის მაშინაც კი, თუ Observable არასოდროს გამოსცემს მნიშვნელობას
 it('will give false positive', () => {
   service.getData().subscribe(data => {
     expect(data).toBe('expected'); // ⚠️ This might never run
@@ -2203,7 +2062,7 @@ it('will give false positive', () => {
 });
 
 // ✅ GOOD - Test waits for subscription
-// კარგი - ტესტი ელოდება გამოწერას
+// ტესტი ელოდება subscription-ს
 it('will wait correctly', (done) => {
   service.getData().subscribe(data => {
     expect(data).toBe('expected');
@@ -2218,11 +2077,11 @@ it('will wait correctly', (done) => {
 ❌ **Problem:** Tests pass even when unexpected HTTP requests are made or expected requests are missing.
 
 **ქართული:**
-❌ **პრობლემა:** ტესტები გაივლის მაშინაც კი, როდესაც გაკეთებულია მოულოდნელი HTTP მოთხოვნები ან მოსალოდნელი მოთხოვნები აკლია.
+❌ **პრობლემა:** ტესტები გაივლის მაშინაც კი, როდესაც გაკეთებულია ზედმეტი მოულოდნელი HTTP მოთხოვნები ან აკლია შესასრულებელი მოთხოვნები.
 
 ```typescript
 // ❌ BAD - No verification
-// ცუდი - ვერიფიკაციის გარეშე
+// ვერიფიკაციის გარეშე
 describe('Bad Practice', () => {
   // Missing afterEach with httpMock.verify()
   // აკლია afterEach httpMock.verify()-ით
@@ -2236,7 +2095,7 @@ describe('Bad Practice', () => {
 });
 
 // ✅ GOOD - Always verify
-// კარგი - ყოველთვის ვერიფიკაცია
+// ყოველთვის ვერიფიკაცია
 describe('Good Practice', () => {
   afterEach(() => {
     httpMock.verify(); // ✓ Catches unhandled requests
@@ -2257,11 +2116,11 @@ describe('Good Practice', () => {
 ❌ **Problem:** Subscriptions that are never cleaned up cause memory leaks and can affect other tests.
 
 **ქართული:**
-❌ **პრობლემა:** გამოწერები, რომლებიც არასოდეს იწმინდება, იწვევენ მეხსიერების ჟონვას და შეუძლიათ იმოქმედონ სხვა ტესტებზე.
+❌ **პრობლემა:** Subscription-ები რომლებიც არასდროს იწმინდება, იწვევენ მეხსიერების გაჟონვას და შეუძლიათ იმოქმედონ სხვა ტესტებზე.
 
 ```typescript
 // ❌ BAD - Subscription leak
-// ცუდი - გამოწერის ჟონვა
+// გამოწერის ჟონვა
 @Component({... })
 export class LeakyComponent implements OnInit {
   ngOnInit() {
@@ -2278,7 +2137,7 @@ export class LeakyComponent implements OnInit {
 }
 
 // ✅ GOOD - Proper cleanup
-// კარგი - სწორი გაწმენდა
+// სწორი წმენდა
 @Component({...})
 export class CleanComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -2314,7 +2173,7 @@ export class CleanComponent implements OnInit, OnDestroy {
 
 ```typescript
 // ❌ BAD - fakeAsync with HTTP
-// ცუდი - fakeAsync HTTP-სთან
+// fakeAsync HTTP-სთან
 it('will fail', fakeAsync(() => {
   service.getData().subscribe(data => {
     expect(data).toBeDefined();
@@ -2327,7 +2186,7 @@ it('will fail', fakeAsync(() => {
 }));
 
 // ✅ GOOD - Use done() callback with HTTP
-// კარგი - გამოიყენეთ done() callback HTTP-სთან
+// გამოიყენეთ done() callback HTTP-სთან
 it('will work', (done) => {
   service.getData().subscribe(data => {
     expect(data).toBeDefined();
@@ -2339,7 +2198,7 @@ it('will work', (done) => {
 });
 
 // ✅ GOOD - Use fakeAsync for time-based operators only
-// კარგი - გამოიყენეთ fakeAsync მხოლოდ დროზე დაფუძნებული ოპერატორებისთვის
+// გამოიყენეთ fakeAsync მხოლოდ დროზე დაფუძნებული ოპერატორებისთვის
 it('debounce works', fakeAsync(() => {
   const results:  string[] = [];
   searchService.search$. subscribe(term => results.push(term));
@@ -2351,17 +2210,17 @@ it('debounce works', fakeAsync(() => {
 }));
 ```
 
-### 6.5 Not Detecting Changes After Async Operations / ცვლილებების დაუდგენლობა ასინქრონული ოპერაციების შემდეგ
+### 6.5 Not Detecting Changes After Async Operations / ცვლილებების აღქმისთვის შესაბამისი მოქმედებების არ ჩატარება ასინქრონული ოპერაციების შემდეგ
 
 **English:**
 ❌ **Problem:** Component view doesn't update because `fixture.detectChanges()` wasn't called.
 
 **ქართული:**
-❌ **პრობლემა:** კომპონენტის ხედი არ განახლდება, რადგან `fixture.detectChanges()` არ გამოიძახა.
+❌ **პრობლემა:** კომპონენტის ვიზუალო არ განახლდება, რადგან `fixture.detectChanges()` არ გამოიძახა.
 
 ```typescript
 // ❌ BAD - Missing detectChanges
-// ცუდი - detectChanges აკლია
+// detectChanges აკლია
 it('will not see updates', (done) => {
   mockService.getData. mockReturnValue(of(mockData));
   
@@ -2379,7 +2238,7 @@ it('will not see updates', (done) => {
 });
 
 // ✅ GOOD - Call detectChanges after async operations
-// კარგი - გამოიძახეთ detectChanges ასინქრონული ოპერაციების შემდეგ
+// გამოიძახეთ detectChanges ასინქრონული ოპერაციების შემდეგ
 it('will see updates', (done) => {
   mockService.getData. mockReturnValue(of(mockData));
   
@@ -2399,91 +2258,6 @@ it('will see updates', (done) => {
 });
 ```
 
-### 6.6 Testing Implementation Instead of Behavior / იმპლემენტაციის ტესტირება ქცევის ნაცვლად
-
-**English:**
-❌ **Problem:** Tests break when refactoring even though behavior hasn't changed.
-
-**ქართული:**
-❌ **პრობლემა:** ტესტები იშლება რეფაქტორინგისას, მიუხედავად იმისა, რომ ქცევა არ შეცვლილა.
-
-```typescript
-// ❌ BAD - Testing implementation details
-// ცუდი - იმპლემენტაციის დეტალების ტესტირება
-it('bad test', () => {
-  const spy = jest.spyOn(component as any, 'privateMethod');
-  
-  component.publicMethod();
-  
-  // ⚠️ Testing private implementation
-  // ⚠️ პრივატული იმპლემენტაციის ტესტირება
-  expect(spy).toHaveBeenCalled();
-  expect(component.internalState).toBe('something');
-});
-
-// ✅ GOOD - Testing public behavior
-// კარგი - საჯარო ქცევის ტესტირება
-it('good test', () => {
-  component.publicMethod();
-  
-  // ✓ Testing observable output
-  // ✓ Observable-ის გამოსვლის ტესტირება
-  expect(component.result).toBe('expected');
-  
-  // ✓ Testing DOM output
-  // ✓ DOM-ის გამოსვლის ტესტირება
-  const element = fixture.nativeElement. querySelector('.result');
-  expect(element.textContent).toBe('expected');
-});
-```
-
-### 6.7 Hardcoding Values Instead of Using Mocks / მნიშვნელობების ჰარდკოდირება მოკების ნაცვლად
-
-**English:**
-❌ **Problem:** Tests become brittle and don't represent realistic data. 
-
-**ქართული:**
-❌ **პრობლემა:** ტესტები ხდება მყიფე და არ წარმოადგენს რეალისტურ მონაცემებს. 
-
-```typescript
-// ❌ BAD - Hardcoded values scattered everywhere
-// ცუდი - ჰარდკოდირებული მნიშვნელობები ყველგან გაბნეული
-it('bad test 1', () => {
-  const user = { id: 1, name: 'Test', email: 'test@test.com' };
-  // ... 
-});
-
-it('bad test 2', () => {
-  const user = { id: 1, name: 'Test', email: 'test@test.com' }; // ⚠️ Duplicated
-  // ...
-});
-
-// ✅ GOOD - Centralized mock data
-// კარგი - ცენტრალიზებული მოკ მონაცემები
-describe('UserComponent', () => {
-  const mockUser = {
-    id:  1,
-    name: 'ლევან ხუციშვილი',
-    email:  'levan@example.com',
-    role: 'active'
-  };
-  
-  const mockUsers = [mockUser, { ... mockUser, id: 2, name: 'მარი��მ' }];
-  
-  it('good test 1', () => {
-    // ✓ Reuse consistent mock data
-    expect(component.user).toEqual(mockUser);
-  });
-  
-  it('good test 2', () => {
-    // ✓ Same data, consistent results
-    expect(component.users).toEqual(mockUsers);
-  });
-});
-```
-
----
-
 ## Chapter 7: Conclusion
 ## თავი 7: დასკვნა
 
@@ -2499,14 +2273,6 @@ Testing RxJS code in Angular applications requires understanding both the Angula
 5. **Integration Tests** - Test how multiple components work together to catch integration issues
 6. **Avoid Pitfalls** - Watch out for common mistakes like memory leaks, missing `detectChanges()`, and testing implementation details
 
-**Next Steps:**
-
-- Practice writing tests for your existing RxJS code
-- Refactor tests to follow the patterns in this guide
-- Set up continuous integration to run tests automatically
-- Aim for high test coverage (80%+) while focusing on critical paths
-- Share knowledge with your team and establish testing standards
-
 **Resources:**
 
 - [Angular Testing Documentation](https://angular.io/guide/testing)
@@ -2517,24 +2283,16 @@ Testing RxJS code in Angular applications requires understanding both the Angula
 ---
 
 **ქართული:**
-RxJS კოდის ტესტირება Angular აპლიკაციებში მოითხოვს როგორც Angular-ის სატესტო ფრეიმვორკის, ისე RxJS პატერნების გაგებას. ამ გზამკვლევში მოცემული საუკეთესო პრაქტიკების დაცვით, შეგიძლიათ დაწეროთ ყოვლისმომცველი, მოვლადი ტესტები, რომლებიც მოგცემენ ნდობას თქვენს კოდში.
+RxJS კოდის ტესტირება Angular აპლიკაციებში მოითხოვს როგორც Angular-ის სატესტო ფრეიმვორკის, ისე RxJS პატერნების გაგებას. ამ გზამკვლევში მოცემული საუკეთესო პრაქტიკების დაცვით, შეგიძლიათ დაწეროთ ყოვლისმომცველი, ხარისხიანი ტესტები, რომლებსაც ენდობით !
 
-**მთავ��რი მოსაზრებები:**
+**მთავარი:**
 
-1. **სწორად მოახდინეთ მონაცემების მოკირება** - გამო���ყენეთ Jest-ის მოკირების შესაძლებლობები RxJS `of()`, `throwError()` და `HttpClientTestingModule`-თან ერთად
+1. **სწორად მოახდინეთ მონაცემების მოკირება** - გამოიყენეთ Jest-ის მოკირების შესაძლებლობები RxJS `of()`, `throwError()` და `HttpClientTestingModule`-თან ერთად
 2. **აკონტროლეთ დრო** - გამოიყენეთ `fakeAsync` და `tick` დროზე დაფუძნებული ოპერატორებისთვის, მაგრამ თავიდან აიცილეთ მათი გამოყენება რეალურ HTTP მოთხოვნებთან
-3. **ატესტეთ შეცდომები** - ყოველთვის ატესტეთ როგორც წარმატებული, ისე შეცდომის სცე��არები `catchError`, `retry` და შეცდომების მოკირების გამოყენებით
-4. **დაიცავით საუკეთესო პრაქტიკები** - გაასუფთავეთ გამოწერები, გამოიყენეთ `done()` callback-ები, გამოიძახეთ `httpMock.verify()` და ატესტეთ ქცევა, არა იმპლემენტაცია
-5. **ინტეგრაციული ტესტები** - ატესტეთ როგორ მუშაობს რამდენიმე კომპონენტი ერთად ინტეგრაციული პრობლემების დასაფიქსირებლად
-6. **თავიდან აიცილეთ შეცდომები** - ყურადღება მიაქციეთ ხშირ შეცდომებს, როგორიცაა მეხსიერების ჟონვა, `detectChanges()`-ის დაკარგვა და იმპლემენტაციის დეტალების ტესტირება
-
-**შემდეგი ნაბიჯები:**
-
-- ივარჯიშეთ ტესტების დაწერაში თქვენი არსებული RxJS კოდისთვის
-- გააკეთეთ ტესტების რეფაქტორინგი ამ გზამკვლევში მოცემული პატერნების დაცვით
-- დააყენეთ უწყვეტი ინტეგრაცია ტესტების ავტომატურად გაშვებისთვის
-- დაისახეთ მიზნად მაღალი ტესტის დაფარვა (80%+) კრიტიკულ გზებზე ფოკუსირებით
-- გააზიარეთ ცოდნა თქვენს გუნდთან და დაადგინეთ ტესტირების სტანდარტები
+3. **გატესტეთ შეცდომები** - ყოველთვის გატესტეთ როგორც წარმატებული, ისე შეცდომის სცენარები `catchError`, `retry`
+4. **დაიცავით საუკეთესო პრაქტიკები** - გაასუფთავეთ გამოწერები, გამოიყენეთ `done()` callback-ები, გამოიძახეთ `httpMock.verify()`
+5. **ინტეგრაციული ტესტები** - აგტესტეთ როგორ მუშაობს რამდენიმე კომპონენტი ერთად ინტეგრაციული ტესტების დახმარებით
+6. **თავიდან აიცილეთ შეცდომები** - ყურადღება მიაქციეთ ხშირ შეცდომებს, როგორიცაა მეხსიერების გაჟონვა, `detectChanges()`-ის დაკარგვა
 
 **რესურსები:**
 
@@ -2545,114 +2303,8 @@ RxJS კოდის ტესტირება Angular აპლიკაც�
 
 ---
 
-## Final Example:  Complete Test Suite
-## საბოლოო მაგალითი: სრული ტესტების ნაკრები
-
-```typescript
-// Complete example bringing everything together
-// სრული მაგალითი, რომელიც აერთიანებს ყველაფერს
-
-describe('Complete Test Suite Example - სრული ტესტების მაგალითი', () => {
-  let component: UserDashboardComponent;
-  let fixture: ComponentFixture<UserDashboardComponent>;
-  let httpMock: HttpTestingController;
-  let mockNotificationService: jest.Mocked<NotificationStreamService>;
-
-  beforeEach(async () => {
-    mockNotificationService = {
-      addNotification: jest.fn(),
-      notifications$: of([])
-    } as any;
-
-    await TestBed.configureTestingModule({
-      declarations: [UserDashboardComponent],
-      imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        UserService,
-        ProductService,
-        { provide: NotificationStreamService, useValue: mockNotificationService }
-      ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(UserDashboardComponent);
-    component = fixture.componentInstance;
-    httpMock = TestBed.inject(HttpTestingController);
-  });
-
-  afterEach(() => {
-    httpMock.verify();
-  });
-
-  describe('Initialization - ინიციალიზაცია', () => {
-    it('should create component', () => {
-      expect(component).toBeTruthy();
-    });
-
-    it('should load initial data', (done) => {
-      fixture.detectChanges();
-
-      const req = httpMock.expectOne('/api/users');
-      req.flush(mockUsers);
-
-      fixture.whenStable().then(() => {
-        expect(component.users).toEqual(mockUsers);
-        done();
-      });
-    });
-  });
-
-  describe('User Interactions - მომხმარებლის ინტერაქციები', () => {
-    it('should filter users on search', fakeAsync(() => {
-      fixture.detectChanges();
-      
-      const input = fixture.nativeElement.querySelector('input');
-      input.value = 'გიორგი';
-      input.dispatchEvent(new Event('input'));
-      
-      tick(300); // debounce time
-      fixture.detectChanges();
-      
-      expect(component.filteredUsers. length).toBeGreaterThan(0);
-    }));
-  });
-
-  describe('Error Handling - შეცდომების დამუშავება', () => {
-    it('should handle API errors gracefully', (done) => {
-      fixture.detectChanges();
-
-      const req = httpMock.expectOne('/api/users');
-      req.error(new ProgressEvent('error'));
-
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        
-        expect(component.error).toBeTruthy();
-        expect(mockNotificationService.addNotification).toHaveBeenCalledWith({
-          message: expect.any(String),
-          type: 'error'
-        });
-        
-        done();
-      });
-    });
-  });
-
-  describe('Cleanup - გაწმენდა', () => {
-    it('should unsubscribe on destroy', () => {
-      const spy = jest.spyOn(component['destroy$'], 'next');
-      component.ngOnDestroy();
-      expect(spy).toHaveBeenCalled();
-    });
-  });
-});
-```
-
 **English:**
 This comprehensive guide provides you with all the tools and knowledge you need to write effective RxJS tests in Angular using Jest and TestBed. Happy testing!  🚀
 
 **ქართული:**
-ეს ყოვლისმომცველი გზამკვლევი გაძლევთ ყველა იარაღს და ცოდნას, რაც გჭირდებათ ეფექტური RxJS ტესტების დასაწერად Angular-ში Jest-ისა და TestBed-ის გამოყენებით. წარმატებული ტესტირება!  🚀
+ეს ყოვლისმომცველი სტატია მოგცემთ ცოდნას, რაც გჭირდებათ ეფექტური RxJS ტესტების დასაწერად Angular-ში Jest-ის გამოყენებით. წარმატებული ტესტირება!  🚀
