@@ -1,0 +1,75 @@
+<div class="example-container">
+  <h1>RxJS Testing Examples / RxJS ტესტირების მაგალითები</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    Loading... / იტვირთება...
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Users Section -->
+  <section class="users-section">
+    <h2>Users / მომხმარებლები</h2>
+    <div *ngIf="users.length > 0">
+      <p>Total Users / სულ მომხმარებელი: {{ users.length }}</p>
+      <p>Active Users / აქტიური მომხმარებელი: {{ getActiveUsers().length }}</p>
+      <ul>
+        <li *ngFor="let user of users">
+          {{ user.name }} ({{ user.email }}) - {{ user.role }}
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <h2>Search / ძიება</h2>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchInput(searchTerm)"
+      placeholder="Search... / მოძებნე..."
+    />
+    <div *ngIf="searchResults.length > 0">
+      <h3>Search Results / ძიების შედეგები</h3>
+      <ul>
+        <li *ngFor="let result of searchResults">{{ result }}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    <h2>Products / პროდუქტები</h2>
+    <div *ngIf="products.length > 0">
+      <ul>
+        <li *ngFor="let product of products">
+          {{ product.name }} - ${{ product.price }} ({{ product.category }})
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Notification Section -->
+  <section class="notification-section">
+    <h2>Notifications / შეტყობინებები</h2>
+    <button (click)="showNotification('წარმატება!', 'success')">
+      Show Success / წარმატების ჩვენება
+    </button>
+    <button (click)="showNotification('შეცდომა!', 'error')">
+      Show Error / შეცდომის ჩვენება
+    </button>
+    <button (click)="showNotification('ინფორმაცია', 'info')">
+      Show Info / ინფოს ჩვენება
+    </button>
+
+    <div *ngIf="notification" [class]="'notification ' + notification.type">
+      {{ notification.message }}
+    </div>
+  </section>
+</div>
+
